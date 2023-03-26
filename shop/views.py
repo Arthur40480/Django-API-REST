@@ -1,4 +1,4 @@
-from rest_framework.viewsets import ReadOnlyModelViewSet
+from rest_framework.viewsets import ReadOnlyModelViewSet, ModelViewSet
 
 from rest_framework.response import Response
 
@@ -58,3 +58,14 @@ class ArticleViewset(ReadOnlyModelViewSet):
         if product_id is not None:
             queryset = Article.objects.filter(product_id=product_id)
         return queryset
+
+class AdminCategoryViewset(MultiSerializerMixin, ModelViewSet):
+
+    serializer_class = CategoryListSerializer
+    detail_serializer_class = CategoryDetailSerializer
+    queryset = Category.objects.all()
+
+class AdminArticleViewset(MultiSerializerMixin, ModelViewSet):
+
+    serializer_class = ArticleSerializer
+    queryset = Article.objects.all()
